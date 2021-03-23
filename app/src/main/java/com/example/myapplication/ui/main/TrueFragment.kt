@@ -11,10 +11,9 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
-import com.example.myapplication.R
-import com.example.myapplication.Resource
-import com.example.myapplication.Todos
-import com.example.myapplication.TodosItem
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.myapplication.*
 
 class TrueFragment : Fragment() {
     companion object {
@@ -26,16 +25,13 @@ class TrueFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val view =  inflater.inflate(R.layout.main_fragment, container, false)
+        var recycler = view.findViewById<RecyclerView>(R.id.recyclerView)
+        recycler.layoutManager = LinearLayoutManager(this.context)
 
-        viewModel.todos.observe(viewLifecycleOwner){
+        viewModel.posts.observe(viewLifecycleOwner){
             when (it){
                 is Resource.Success -> {
-                    view.findViewById<ListView>(R.id.message).adapter =
-                        ArrayAdapter<TodosItem>(
-                            requireContext(),
-                            android.R.layout.simple_list_item_1,
-                            it.data ?: Todos()
-                        )
+                    recycler.adapter = MyRecyclerViewAdapter(it.data?: Posts())
                     view.findViewById<ProgressBar>(R.id.progressbar).visibility = View.GONE
                 }
                 is Resource.Loading ->{

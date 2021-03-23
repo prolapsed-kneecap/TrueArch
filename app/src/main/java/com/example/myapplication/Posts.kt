@@ -1,3 +1,3 @@
 package com.example.myapplication
 
-class Todos:ArrayList<TodosItem>()
+class Posts:ArrayList<PostsItemX>()

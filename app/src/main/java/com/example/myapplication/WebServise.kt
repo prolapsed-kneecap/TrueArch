@@ -6,5 +6,7 @@ import retrofit2.http.GET
 interface WebServise {
 
     @GET("/todos")
-    suspend fun getTodos() : Todos
+    suspend fun getTodos():Todos
+    @GET("/posts")
+    suspend fun getPosts():Posts
 }
